@@ -1,65 +1,48 @@
-import java.util.LinkedList; 
-import java.util.Queue;
+import java.util.Stack;
 /**
  *
- * @author luis_
+ * @author Luis Alberto García Rodríguez
  */
 class Contenedor {
-    Queue<Integer> contenedor = new LinkedList<>();
-    private static Contenedor queueInstance = null;
+    Stack contenedor;
+    private static Contenedor stackInstance = null;
     
     public static Contenedor getStreamInstance() {
-        if (queueInstance == null) {
-                queueInstance = new Contenedor();
+        if (stackInstance == null) {
+                stackInstance = new Contenedor();
         }
-        return queueInstance;
+        return stackInstance;
     }
-
-    public Queue<Integer> get() {
+    // Constructor
+    Contenedor() {
+        this.contenedor = new Stack();
+    }
+    // Returns all elements in stack
+    public Stack get() {
         return contenedor;
     }
-
-    // Inserts the specified element into this queue if it is possible to do so
+    // Inserts the specified element into this stack if it is possible to do so
     // immediately without violating capacity restrictions
-    public void add(Integer value) {
-        synchronized (contenedor) {
-            contenedor.add(value);
+    public void push(Integer value){
+        synchronized(contenedor){
+            contenedor.push(value);
         }
     }
-
-    // Removes a single instance of the specified element from this collection
-    public void removeValue(Integer value) {
-        synchronized (contenedor) {
-            contenedor.remove(value);
-        }
-    }
-    
-    // Removes a single element from this collection
-    public void remove() {
-        synchronized (contenedor) {
-            contenedor.remove();
-        }
-    }
-
-    // Retrieves and removes the head of this queue, or returns null if this
-    // queue is empty.
-    public Integer poll() {
-        Integer data = contenedor.poll();
-        return data;
-    }
-
-    // Returns true if this collection contains no elements
-    public boolean isEmpty() {
-        return contenedor.isEmpty();
-    }
-
     // Returns the number of elements in this collection. If this collection
     // contains more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE
     public int getTotalSize() {
         return contenedor.size();
     }
-    
+    // Removes a single element from this collection
+    public void pop(){
+        contenedor.pop();
+    }
+    // Returns the head of this stack
     public int getPeek(){
-        return contenedor.peek();
+        return (int) contenedor.peek();
+    }
+    // Returns true if this collection contains no elements
+    public boolean isEmpty() {
+        return contenedor.isEmpty();
     }
 }
